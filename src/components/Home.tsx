@@ -1,19 +1,12 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import MovieGrid from "./MovieGrid";
 import { searchMovies } from "./ApiService";
-
-interface Movie {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-}
+import SearchContext from "../Context/SearchContext ";
 
 const SearchBox: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const { movies, setMovies, searchTerm, setSearchTerm } =
+    useContext(SearchContext);
 
   const handleSearch = async () => {
     const response = await searchMovies(searchTerm);
