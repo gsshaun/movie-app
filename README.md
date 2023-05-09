@@ -15,6 +15,7 @@ A web application that allows users to search for movies, view their details and
 - Axios
 - Local Storage
 - React Context
+- React Icon
 
 ## APIs Used
 
