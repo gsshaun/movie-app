@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import MovieGrid from "./MovieGrid";
-import { searchMovies } from "./ApiService";
+import { searchMovies } from "../service/ApiService";
 import SearchContext from "../context/SearchContext ";
 
 const SearchBox: React.FC = () => {
@@ -12,10 +12,6 @@ const SearchBox: React.FC = () => {
     const response = await searchMovies(searchTerm);
     setMovies(response.Search);
   };
-
-  // useEffect(() => {
-  //   handleSearch();
-  // }, [searchTerm]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);

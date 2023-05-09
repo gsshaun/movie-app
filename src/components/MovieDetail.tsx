@@ -2,7 +2,7 @@ import { Box, Image, Heading, Text, Spinner, Center } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import ErrorPage from "./ErrorPage";
-import { getMovieById } from "./ApiService";
+import { getMovieById } from "../service/ApiService";
 import { MovieExt } from "../interfaces/Movie";
 
 const MovieDetail: React.FC = () => {
