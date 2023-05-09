@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SearchContext from "../Context/SearchContext ";
+import SearchContext from "../context/SearchContext ";
 import React, { useState } from "react";
 import SearchBox from "./Home";
 import MovieDetail from "./MovieDetail";

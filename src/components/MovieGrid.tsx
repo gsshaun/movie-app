@@ -1,12 +1,48 @@
-import { Box, Flex, Center, Image, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Center,
+  Image,
+  Heading,
+  Text,
+  Button,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Movie } from "../interfaces/Movie";
+import {
+  AddToFavorites,
+  RemoveFavorites
+} from "../services/Favorites";
+import { LS_FAVORITE_MOVIE } from "../constants/constants";
 interface Props {
   movies: Movie[];
 }
 
 const MovieGrid: React.FC<Props> = ({ movies }) => {
+  const [favorites, setFavorites] = useState<Movie[]>([]);
+
+  const setFavoritInLocalStorage = () => {
+    const favoriteMovies = JSON.parse(
+      // Load favorites from local storage
+      localStorage.getItem(LS_FAVORITE_MOVIE) || "[]"
+    );
+    setFavorites(favoriteMovies);
+  };
+  useEffect(() => {
+    setFavoritInLocalStorage();
+  }, []);
+
+  const handleAddToFavorites = (movie: Movie) => {
+    AddToFavorites(movie);
+    setFavoritInLocalStorage();
+  };
+
+  const handleRemoveFavorites = (movie: Movie) => {
+    RemoveFavorites(movie);
+    setFavoritInLocalStorage();
+  };
+
   return (
     <Flex direction={{ base: "column", lg: "row" }} flexWrap="wrap">
       {movies.map((movie) => (
@@ -32,6 +68,19 @@ const MovieGrid: React.FC<Props> = ({ movies }) => {
               <Text fontSize="sm" mb={2}>
                 {movie.Year} ({movie.Type})
               </Text>
+              <Button
+                colorScheme="green"
+                onClick={(event) => {
+                  favorites.some((mv) => mv.imdbID == movie.imdbID)
+                    ? handleRemoveFavorites(movie)
+                    : handleAddToFavorites(movie);
+                  event.preventDefault();
+                }}
+              >
+                {favorites.some((mv) => mv.imdbID == movie.imdbID)
+                  ? "Remove Favorite"
+                  : "Add to Favorites"}
+              </Button>
             </Box>
           </Link>
         </Box>
