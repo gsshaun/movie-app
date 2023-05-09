@@ -1,4 +1,4 @@
-# Movie App
+# Movie App - Search and discover your favorite movies
 
 A web application that allows users to search for movies, view their details and save to favorites.
 
