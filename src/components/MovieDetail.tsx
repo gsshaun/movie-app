@@ -3,21 +3,11 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import ErrorPage from "./ErrorPage";
 import { getMovieById } from "./ApiService";
-
-interface Movie {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-  Plot: string;
-  Director: string;
-  Actors: string;
-}
+import { MovieExt } from "../interfaces/Movie";
 
 const MovieDetail: React.FC = () => {
   const { imdbID } = useParams<{ imdbID?: string }>();
-  const [movie, setMovie] = useState<Movie | null>(null);
+  const [movie, setMovie] = useState<MovieExt | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

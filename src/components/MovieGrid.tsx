@@ -1,15 +1,7 @@
 import { Box, Flex, Center, Image, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React from "react";
-
-interface Movie {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-}
-
+import { Movie } from "../interfaces/Movie";
 interface Props {
   movies: Movie[];
 }
