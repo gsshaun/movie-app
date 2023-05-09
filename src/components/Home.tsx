@@ -13,9 +13,9 @@ const SearchBox: React.FC = () => {
     setMovies(response.Search);
   };
 
-  useEffect(() => {
-    handleSearch();
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   handleSearch();
+  // }, [searchTerm]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
