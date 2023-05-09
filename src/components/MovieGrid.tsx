@@ -5,16 +5,15 @@ import {
   Image,
   Heading,
   Text,
-  Button,
+  IconButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Movie } from "../interfaces/Movie";
-import {
-  AddToFavorites,
-  RemoveFavorites
-} from "../services/Favorites";
+import { AddToFavorites, RemoveFavorites } from "../services/Favorites";
 import { LS_FAVORITE_MOVIE } from "../constants/constants";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+
 interface Props {
   movies: Movie[];
 }
@@ -43,6 +42,10 @@ const MovieGrid: React.FC<Props> = ({ movies }) => {
     setFavoritInLocalStorage();
   };
 
+  const isMovieIdAvailable = (movie: Movie) => {
+    return favorites.some((mv) => mv.imdbID == movie.imdbID);
+  };
+
   return (
     <Flex direction={{ base: "column", lg: "row" }} flexWrap="wrap">
       {movies.map((movie) => (
@@ -54,33 +57,35 @@ const MovieGrid: React.FC<Props> = ({ movies }) => {
               borderRadius={8}
               _hover={{ borderColor: "blue.500" }}
               cursor="pointer"
+              position="relative"
             >
-              <Center mb={2}>
-                <Image
-                  src={movie.Poster}
-                  alt={`${movie.Title} poster`}
-                  maxH={400}
-                />
-              </Center>
-              <Heading as="h2" size="md" mb={2}>
-                {movie.Title}
-              </Heading>
-              <Text fontSize="sm" mb={2}>
-                {movie.Year} ({movie.Type})
-              </Text>
-              <Button
-                colorScheme="green"
+              <Image
+                src={movie.Poster}
+                alt={`${movie.Title} poster`}
+                maxH={400}
+              />
+              <IconButton
+                position="absolute"
+                top={2}
+                right={2}
+                colorScheme={isMovieIdAvailable(movie) ? "green" : "gray"}
                 onClick={(event) => {
-                  favorites.some((mv) => mv.imdbID == movie.imdbID)
+                  isMovieIdAvailable(movie)
                     ? handleRemoveFavorites(movie)
                     : handleAddToFavorites(movie);
                   event.preventDefault();
                 }}
-              >
-                {favorites.some((mv) => mv.imdbID == movie.imdbID)
-                  ? "Remove Favorite"
-                  : "Add to Favorites"}
-              </Button>
+                aria-label={""}
+                icon={isMovieIdAvailable(movie) ? <FaHeart /> : <FaRegHeart />}
+              />
+              <Center mt={2}>
+                <Heading as="h2" size="md" mb={2}>
+                  {movie.Title}
+                </Heading>
+              </Center>
+              <Text fontSize="sm" mb={2}>
+                {movie.Year} ({movie.Type})
+              </Text>
             </Box>
           </Link>
         </Box>
