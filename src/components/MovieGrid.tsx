@@ -32,13 +32,8 @@ const MovieGrid: React.FC<Props> = ({ movies }) => {
     setFavoritInLocalStorage();
   }, []);
 
-  const handleAddToFavorites = (movie: Movie) => {
-    AddToFavorites(movie);
-    setFavoritInLocalStorage();
-  };
-
-  const handleRemoveFavorites = (movie: Movie) => {
-    RemoveFavorites(movie);
+  const handleFavorites = (movie: Movie) => {
+    isMovieIdAvailable(movie) ? RemoveFavorites(movie) : AddToFavorites(movie);
     setFavoritInLocalStorage();
   };
 
@@ -70,9 +65,7 @@ const MovieGrid: React.FC<Props> = ({ movies }) => {
                 right={2}
                 colorScheme={isMovieIdAvailable(movie) ? "green" : "gray"}
                 onClick={(event) => {
-                  isMovieIdAvailable(movie)
-                    ? handleRemoveFavorites(movie)
-                    : handleAddToFavorites(movie);
+                  handleFavorites(movie);
                   event.preventDefault();
                 }}
                 aria-label={""}
