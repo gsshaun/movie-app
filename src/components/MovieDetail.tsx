@@ -10,7 +10,7 @@ import {
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import ErrorPage from "./ErrorPage";
-import { getMovieById } from "../service/ApiService";
+import { getMovieById } from "../services/ApiService";
 import { MovieExt, Movie } from "../interfaces/Movie";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { AddToFavorites, RemoveFavorites } from "../services/Favorites";
@@ -36,7 +36,7 @@ const MovieDetail: React.FC = () => {
           setMovie(data);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setError("Something went wrong. Please try again later.");
       });
   }, [imdbID]);
