@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import MovieGrid from "./MovieGrid";
-import { searchMovies } from "../service/ApiService";
+import { searchMovies } from "../services/ApiService";
 import SearchContext from "../context/SearchContext ";
 
 const SearchBox: React.FC = () => {
